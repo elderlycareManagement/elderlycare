@@ -2,11 +2,12 @@ const db = require('../models')
 const jwt = require('jsonwebtoken')
 
 const treatement = db.treatmentRecord
-const add_treatment = (req,res) => {
+const add_treatment = async (req,res) => {
     try {
+        
         const {patientId,treatedDate,description,treatedBy,treatedAt,createdBy} = req.body
 
-        const insertTreatment = treatement.create({
+        const insertTreatment = await treatement.create({
             patientId:patientId,
             treatedDate:treatedDate,
             description:description,

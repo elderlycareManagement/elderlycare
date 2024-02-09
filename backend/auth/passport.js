@@ -15,6 +15,7 @@ passport.use(
             return employee
                 .findOne({where:{id: jwtPayload.id}})
                 .then(employee => {
+
                     return done(null, employee)
                 })
                 .catch(err => {

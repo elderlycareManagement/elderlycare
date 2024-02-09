@@ -136,11 +136,11 @@ const Login = async (req, res) => {
         }
 
         const tokenJWT = jwt.sign({
-            employeeId:checkEmail.id,
+            id:checkEmail.id,
             empCode:checkEmail.empCode,
             role:checkEmail.role
         },process.env.JWT_SECRET)
-        return res.status(200).json({token:tokenJWT,message:"เข้าสู่ระบบเสร็จสิ้น"})
+        return res.status(200).json({message:"เข้าสู่ระบบเสร็จสิ้น",token:tokenJWT})
 
     } catch (error) {
         console.log(error)

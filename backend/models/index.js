@@ -117,7 +117,7 @@ db.appointmentDate.belongsTo(db.appointmentRecord,{
 
 
 
-db.sequelize.sync({ alter: true}).then(() => {
+db.sequelize.sync({ alter: false}).then(() => {
     console.log('yes re-sync done!!')
 })
 

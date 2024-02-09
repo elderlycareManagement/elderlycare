@@ -1,5 +1,5 @@
 module.exports = (sequelize,DataTypes) => {
-    const initialArrired = sequelize.define("",{
+    const initialArrired = sequelize.define("initialArrired",{
         patientId:{
             type:DataTypes.INTEGER,
             allowNull:false

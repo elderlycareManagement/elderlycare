@@ -2,6 +2,7 @@ try{
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config({path: './config.env'})
+require('./auth/passport');
 
 const app = express()
 
