@@ -11,11 +11,11 @@ passport.use(
             jwtFromRequest: ExJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: process.env.JWT_SECRET
         },
-        (jwtPayอload, done) => {
+        (jwtPayload, done) => {
             return employee
                 .findOne({where:{id: jwtPayload.id}})
                 .then(employee => {
-                    return done(null, user)
+                    return done(null, employee)
                 })
                 .catch(err => {
                     return done(err)

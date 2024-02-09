@@ -12,28 +12,8 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(13),
             allowNull:false
         },
-        weigth:{
-            type:DataTypes.STRING(5),
-            allowNull:false
-        },
-        height:{
-            type:DataTypes.STRING(5),
-            allowNull:false
-        },
         receivedDate:{
             type: DataTypes.DATE,
-            allowNull:false
-        },
-        receivedForm:{
-            type:DataTypes.STRING(50),
-            allowNull:false
-        },
-        received:{
-            type:DataTypes.STRING(20),
-            allowNull:false
-        },
-        informationProvider:{
-            type:DataTypes.STRING(50),
             allowNull:false
         },
         recentIllness:{
@@ -41,14 +21,6 @@ module.exports = (sequelize,DataTypes) => {
             allowNull:false
         },
         medicalDiagnosis:{
-            type:DataTypes.STRING(100),
-            allowNull:false
-        },
-        symptom:{
-            type:DataTypes.STRING(200),
-            allowNull:false
-        },
-        pulse:{
             type:DataTypes.STRING(100),
             allowNull:false
         },

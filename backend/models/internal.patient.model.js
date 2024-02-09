@@ -12,12 +12,6 @@ module.exports = (sequelize,DataTypes) => {
             type:DataTypes.DATE,
             allowNull:false
         }
-    },{
-        uniqueKeys: {
-          Items_unique: {
-            fields: ['minor', 'major']
-          }
-        }
     })
 
     return internalPatient

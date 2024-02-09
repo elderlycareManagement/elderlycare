@@ -4,13 +4,13 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull:false
         },
-        descpiption:{
+        description:{
             type:DataTypes.STRING(300),
             allowNull:false,
         },
         appointTo:{
             type:DataTypes.INTEGER,
-
+            allowNull:false
         },
         appointAt:{
             type:DataTypes.INTEGER,
