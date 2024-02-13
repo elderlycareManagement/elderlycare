@@ -38,7 +38,7 @@ db.treatmentRecord = require('./treatment.record.model')(sequelize,DataTypes)
 db.internalPatient = require('./internal.patient.model')(sequelize,DataTypes)
 db.healthEvaluation = require('./health.evaluation.model')(sequelize,DataTypes)
 db.illnessHistory = require('./illness.history')(sequelize,DataTypes)
-db.initialArrired = require('./initial.arrired.model')(sequelize,DataTypes)
+db.initialArrired = require('./initial.arrived.model')(sequelize,DataTypes)
 db.vitalSign = require('./vital.sign.model')(sequelize,DataTypes)
 
 
@@ -117,7 +117,7 @@ db.appointmentDate.belongsTo(db.appointmentRecord,{
 
 
 
-db.sequelize.sync({ alter: false}).then(() => {
+db.sequelize.sync({ alter: true}).then(() => {
     console.log('yes re-sync done!!')
 })
 

@@ -45,7 +45,7 @@ module.exports = (sequelize,DataTypes) => {
         abnormalities:{
             type:DataTypes.STRING(30),allowNull:false
         },
-        beharior:{
+        behavior:{
             type:DataTypes.STRING(30),allowNull:false
         },
         mood:{
@@ -54,7 +54,7 @@ module.exports = (sequelize,DataTypes) => {
         anxious:{
             type:DataTypes.STRING(30),allowNull:false
         },
-        moneMent:{
+        moveMent:{
             type:DataTypes.STRING(30),allowNull:false
         },
         FRA:{

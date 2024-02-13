@@ -5,6 +5,7 @@ const { json } = require('sequelize')
 
 const employee = db.employee
 
+
 const getAllEmployee = async (req, res) => {
     try {
         if (req.user.role != '7') {

@@ -20,10 +20,6 @@ module.exports = (sequelize,DataTypes) => {
             type:DataTypes.STRING(50),
             allowNull:false
         },
-        medicalDiagnosis:{
-            type:DataTypes.STRING(100),
-            allowNull:false
-        },
         lastReceived:{
             type:DataTypes.STRING(200),
             allowNull:false
@@ -36,7 +32,7 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(5),
             allowNull:false
         },
-        patienHistory:{
+        patientHistory:{
             type: DataTypes.STRING(200),
             allowNull:false
         },

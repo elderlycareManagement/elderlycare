@@ -1,10 +1,10 @@
 module.exports = (sequelize,DataTypes) => {
-    const initialArrired = sequelize.define("initialArrired",{
+    const initialArrived = sequelize.define("initialArrived",{
         patientId:{
             type:DataTypes.INTEGER,
             allowNull:false
         },
-        receivedForm:{
+        receivedFrom:{
             type:DataTypes.STRING(20),
             allowNull:false
         },
@@ -16,7 +16,7 @@ module.exports = (sequelize,DataTypes) => {
             type:DataTypes.STRING(20),
             allowNull:false
         },
-        medicalDiagosis:{
+        medicalDiagnosis:{
             type:DataTypes.STRING(200),
             allowNull:false
         },
@@ -30,5 +30,5 @@ module.exports = (sequelize,DataTypes) => {
         }
 
     })
-    return initialArrired
+    return initialArrived
 }
