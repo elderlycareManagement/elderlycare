@@ -1,3 +1,4 @@
+const { where } = require('sequelize')
 const db = require('../models')
 
 const patient = db.patient
@@ -12,12 +13,13 @@ const searchPatient = async (req, res) => {
         if (req.user.role != '7') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
-        const branchId = req.params
+        const {branchId} = req.params
         const { peopleCode, isActive, id } = req.query
         if (!peopleCode) {
             return res.status(403).json({ message: 'ข้อมูลไม่ครบตาม request' })
         }
         const whereClause = {};
+        whereClause.branchId = branchId
 
         if (id) {
             whereClause.id = id;
