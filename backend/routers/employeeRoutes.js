@@ -3,11 +3,15 @@ const employeeRoute = require('express').Router()
 const passport = require('passport')
 
 
-   employeeRoute.get('/getall',employeeController.GetAllEmployee)
-   employeeRoute.post('/add',employeeController.AddEmployee)
-   employeeRoute.post('/login',employeeController.Login)
-   employeeRoute.patch('/editemployee',employeeController.EditEmployee)
-   employeeRoute.patch('/editpassword',employeeController.EditPassword)
-   employeeRoute.delete('/delemployee/:id',employeeController.DeleteEmployee)
+   employeeRoute.get('/getAllEmployee',passport.authenticate('jwt', { session: false }),employeeController.getAllEmployee)
+   employeeRoute.get('/getEmployee/:id',passport.authenticate('jwt', { session: false }),employeeController.getEmployeeById)
+   employeeRoute.get('/getAllEmployee/:branchId',passport.authenticate('jwt', { session: false }),employeeController.getAllEmployeeByBranch)
+   employeeRoute.get('/getEmployee/role/:role',passport.authenticate('jwt', { session: false }),employeeController.getEmployeeByRole)
+   employeeRoute.get('/searchEmployee/:branch',passport.authenticate('jwt', { session: false }),employeeController.searchEmployeeBybranchActive)
+   employeeRoute.post('/addEmployee',passport.authenticate('jwt', { session: false }),employeeController.AddEmployee)
+   employeeRoute.post('/login',passport.authenticate('jwt', { session: false }),employeeController.Login)
+   employeeRoute.put('/editEmployee/:id',passport.authenticate('jwt', { session: false }),employeeController.EditEmployee)
+   employeeRoute.patch('/editPassword/:id',passport.authenticate('jwt', { session: false }),employeeController.EditPassword)
+   employeeRoute.delete('/employee/:id',passport.authenticate('jwt', { session: false }),employeeController.DeleteEmployee)
 
    module.exports = employeeRoute

@@ -1,7 +1,5 @@
 const db = require('../models')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const { where } = require('sequelize')
 
 const patient = db.patient
 const healthEvaluation = db.healthEvaluation
@@ -12,7 +10,10 @@ const vitalSign = db.vitalSign
 
 const reqDataPateint = async (req,res) => {
     try {
-        const {peopleCode} = req.body
+        if(req.user.role != '7'){
+            return res.status(401).json({message:'ไม่มีสิทธิ์ใช้งาน API นี้'})
+        }
+        const {peopleCode} = req.params
         if(!peopleCode){
             return res.status(403).json({message:'ข้อมูลไม่ครบตาม request'})
         }
@@ -28,6 +29,8 @@ const reqDataPateint = async (req,res) => {
     }
 }
 
+
+
 const dataPatient = async (req,res) => {
     try {
         if(req.user.role != '7'){
@@ -40,6 +43,8 @@ const dataPatient = async (req,res) => {
         res.status(500).json({message:'เกิดข้อผิดพลาด'})
     }
 }
+
+
 
 
 const addPatient = async (req,res) => {
@@ -75,6 +80,8 @@ const addPatient = async (req,res) => {
     }
 }
 
+
+
 const delPatient = async (req,res) => {
     try {
         if(req.user.role != '7'){
@@ -99,9 +106,19 @@ const delPatient = async (req,res) => {
     }
 }
 
+
+
+const editPatient = async (req,res) => {
+    if(req.user.role != '7'){
+        return res.status(401).json({message:'ไม่มีสิทธิ์ใช้งาน API นี้'})
+    }
+}
+
+
 module.exports = {
     addPatient,
     reqDataPateint,
     dataPatient,
-    delPatient
+    delPatient,
+    editPatient
 }

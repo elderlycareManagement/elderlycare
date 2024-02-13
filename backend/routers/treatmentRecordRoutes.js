@@ -1,11 +1,14 @@
 const treatmentRecordController = require('../controllers/treatmentRecordController')
-const patientRoutes = require('express').Router()
+const treatmentRoutes = require('express').Router()
 const passport = require('passport')
 
-try {
-    patientRoutes.post("/addtreatment",treatmentRecordController.add_treatment)
+
+    treatmentRoutes.get('/getAllTreatment',passport.authenticate('jwt',{session:false}),treatmentRecordController)
+    treatmentRoutes.get('getAllTreatment/:branch',passport.authenticate('jwt',{session:false}),treatmentRecordController)
+    treatmentRoutes.get('getTreatment/:id',passport.authenticate('jwt',{session:false}),treatmentRecordController)
+    treatmentRoutes.get('searchEmployee/:branch',passport.authenticate('jwt',{session:false}),treatmentRecordController)
+    treatmentRoutes.post("/addtreatment",passport.authenticate('jwt',{session:false}),treatmentRecordController.add_treatment)
+    treatmentRoutes.put('/editTreeatment/:id',passport.authenticate('jwt',{session:false}),treatmentRecordController)
+    treatmentRoutes.delete('treatment/:id',passport.authenticate('jwt',{session:false}),treatmentRecordController)
  
-    module.exports = patientRoutes
- } catch (error) {
-     console.log(error)
- }
+    module.exports = treatmentRoutes

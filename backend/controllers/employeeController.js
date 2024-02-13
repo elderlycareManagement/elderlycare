@@ -1,11 +1,16 @@
 const db = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { json } = require('sequelize')
 
 const employee = db.employee
 
-const GetAllEmployee = async (req, res) => {
+const getAllEmployee = async (req, res) => {
     try {
+        if (req.user.role != '7') {
+            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
+        }
+
         const dataEmployee = await employee.findAll()
         return res.status(200).json({ message: "Select success", data: dataEmployee })
     } catch (error) {
@@ -14,8 +19,106 @@ const GetAllEmployee = async (req, res) => {
     }
 }
 
+const getEmployeeById = async (req, res) => {
+    try {
+        if (req.user.role != '7') {
+            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
+        }
+        const { id } = req.params
+        if (!id) {
+            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
+        }
+        const dataEmployee = await employee.findOne({ where: { id: id } })
+
+        if (!dataEmployee) {
+            return res.status(400).json({ message: "ไม่พบข้อมูล จาก ID ที่ส่งมา" })
+        }
+
+        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
+    }
+}
+
+const getAllEmployeeByBranch = async (req, res) => {
+    try {
+        if (req.user.role != '7') {
+            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
+        }
+        const { branchId } = req.params
+        if (!branchId) {
+            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
+        }
+
+        const dataEmployee = await employee.findAll({ where: { branchIdd: branchId } })
+        if (!dataEmployee) {
+            return res.status(400).json({ message: "ไม่พบข้อมูล จาก branchId ที่ส่งมา" })
+        }
+        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
+    }
+}
+
+const getEmployeeByRole = async (req, res) => {
+    try {
+        if (req.user.role != '7') {
+            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
+        }
+
+        const { role } = req.params
+        if (!role) {
+            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
+        }
+
+        const dataEmployee = await employee.findAll({ where: { role: role } })
+        if (!dataEmployee) {
+            return res.status(400).json({ message: "ไม่พบข้อมูล จาก branchId ที่ส่งมา" })
+        }
+
+        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
+    }
+}
+
+const searchEmployeeBybranchActive = async (req, res) => {
+    try {
+        if (req.user.role != '7') {
+            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
+        }
+
+        const { branchId } = req.params
+        const { isActive } = req.query
+
+        if (!branchId || !isActive) {
+            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
+        }
+
+        const dataEmployee = await employee.findAll({ where: { branchId:branchId , isActive:isActive } })
+        if(!dataEmployee){
+            return res.status(400).json({ message: "ไม่พบข้อมูล จาก branchId และ isActive ที่ส่งมา" })
+        }
+
+        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
+    }
+}
+
 const AddEmployee = async (req, res) => {
     try {
+        if (req.user.role != '7') {
+            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
+        }
+
         const { firstname, lastname, email, tel, password } = req.body
         const dataEmployee = await employee.findAll({
             raw: true, order: [
@@ -24,7 +127,7 @@ const AddEmployee = async (req, res) => {
         })
 
         // สร้าง empCode ล่าสุด
-        
+
         const countEmployee = dataEmployee.length - 1
         const empCodeLast = dataEmployee[countEmployee].empCode
         var empSubS = empCodeLast.slice(1)
@@ -106,9 +209,9 @@ const EditPassword = async (req, res) => {
 const DeleteEmployee = async (req, res) => {
     try {
         const { id } = req.params
-        const findEmployee =  await employee.findOne({ where: { id: id } });
+        const findEmployee = await employee.findOne({ where: { id: id } });
         findEmployee.set({
-            role:"7"
+            role: "7"
         })
         findEmployee.save()
         return res.status(200).json({ message: "ลบพนักงานเสร็จสสิ้น" })
@@ -129,18 +232,18 @@ const Login = async (req, res) => {
         if (!checkEmail) {
             return res.status(401).json({ message: "Email ไม่ถูกต้อง" })
         }
-        
+
         const checkPassword = await bcrypt.compare(password, checkEmail.password);
         if (!checkPassword) {
             return res.status(401).json("password ไม่ถูกต้อง");
         }
 
         const tokenJWT = jwt.sign({
-            id:checkEmail.id,
-            empCode:checkEmail.empCode,
-            role:checkEmail.role
-        },process.env.JWT_SECRET)
-        return res.status(200).json({message:"เข้าสู่ระบบเสร็จสิ้น",token:tokenJWT})
+            id: checkEmail.id,
+            empCode: checkEmail.empCode,
+            role: checkEmail.role
+        }, process.env.JWT_SECRET)
+        return res.status(200).json({ message: "เข้าสู่ระบบเสร็จสิ้น", token: tokenJWT })
 
     } catch (error) {
         console.log(error)
@@ -149,10 +252,14 @@ const Login = async (req, res) => {
 }
 
 module.exports = {
-    GetAllEmployee,
+    getAllEmployee,
+    getEmployeeById,
     AddEmployee,
     EditEmployee,
     EditPassword,
     DeleteEmployee,
-    Login
+    Login,
+    getAllEmployeeByBranch,
+    searchEmployeeBybranchActive,
+    getEmployeeByRole
 }
