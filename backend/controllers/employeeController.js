@@ -205,7 +205,7 @@ const Login = async (req, res) => {
             empCode: checkEmail.empCode,
             role: checkEmail.role
         }, process.env.JWT_SECRET)
-        return res.status(200).json({ message: "เข้าสู่ระบบเสร็จสิ้น", token: tokenJWT })
+        return res.status(200).json({ message: "เข้าสู่ระบบเสร็จสิ้น", token: tokenJWT ,role:checkEmail.role})
 
     } catch (error) {
         console.log(error)
