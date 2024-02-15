@@ -16,6 +16,9 @@ const corsOptions = {
 const RoutesEmployee = require('./routes/employeeRoutes')
 const RoutesPatient = require('./routes/patientRoutes')
 const RoutesTreatmentRecord = require('./routes/treatmentRecordRoutes')
+const RoutesAppointment = require('./routes/appointmentRoutes')
+const RoutesVitalSign = require('./routes/vitalSignRoutes')
+const RoutesBranch = require('./routes/branchRoutes')
 
 
 app.use(cors(corsOptions))
@@ -26,6 +29,9 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/employee',RoutesEmployee)
 app.use('/api/patient',RoutesPatient)
 app.use('/api/treatment',RoutesTreatmentRecord)
+app.use('/api/appointment',RoutesAppointment)
+app.use('/api/vitalSign',RoutesVitalSign)
+app.use('/api/branch',RoutesBranch)
 
 
 const PORT = process.env.PORT 

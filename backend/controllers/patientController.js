@@ -1,4 +1,3 @@
-const { where } = require('sequelize')
 const db = require('../models')
 
 const patient = db.patient
@@ -15,9 +14,6 @@ const searchPatient = async (req, res) => {
         }
         const {branchId} = req.params
         const { peopleCode, isActive, id } = req.query
-        if (!peopleCode) {
-            return res.status(403).json({ message: 'ข้อมูลไม่ครบตาม request' })
-        }
         const whereClause = {};
         whereClause.branchId = branchId
 
@@ -25,7 +21,7 @@ const searchPatient = async (req, res) => {
             whereClause.id = id;
         }
         if (peopleCode) {
-            whereClause.peoplepeopleCode = peopleCode;
+            whereClause.peopleCode = peopleCode;
         }
         if (isActive) {
             whereClause.isActive = isActive
@@ -42,8 +38,6 @@ const searchPatient = async (req, res) => {
         return res.status(500).json({ message: "เกิดข้อผิดพลาด โปรดเช็คส่งค่าตาม document" })
     }
 }
-
-
 
 const getAllPatient = async (req, res) => {
     try {
@@ -252,13 +246,12 @@ const addPatientIllnessHistory = async (req, res) => {
     }
 }
 
-
 const delPatient = async (req, res) => {
     try {
         if (req.user.role != '7') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
-        const patientId = req.params
+        const {patientId} = req.params
 
         const findPatient = await patient.findOne({ where: { id: patientId } })
         if (!findPatient) {
@@ -276,8 +269,6 @@ const delPatient = async (req, res) => {
         return res.status(500).json({ message: 'เกิดข้อผิดพลาด' })
     }
 }
-
-
 
 const editPatient = async (req, res) => {
     try {
@@ -474,7 +465,6 @@ const editPatientIllness = async (req, res) => {
     
 }
 
-
 module.exports = {
     addPatientIllnessHistory,
     addPatientHealthEvaluation,
@@ -487,5 +477,4 @@ module.exports = {
     editPatientHealthEvaluation,
     editPatientIllness,
     addPatientInitial,
-
 }

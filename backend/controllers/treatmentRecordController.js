@@ -50,8 +50,8 @@ const searchTreatment = async (req, res) => {
         if (treatedDate) { whereClause.treatedDate = treatedDate }
         if (doctorId) { whereClause.treatedBy = doctorId }
         if (patientId) { whereClause.patientId = patientId }
-
-        const dataTreatment = await treatment.findAll({ where: { whereClause } })
+        console.log(whereClause)
+        const dataTreatment = await treatment.findAll({ where:  whereClause  })
 
         return res.status(200).json({ message: "พบข้อมูลที่ค้นหา", data: dataTreatment })
 
@@ -67,6 +67,9 @@ const editTreeatment = async (req, res) => {
     }
     const { treatmentId } = req.params
     const { treatedDate, description, doctorId, treatedAt, createdBy } = req.body
+    if(!treatedDate || !description || !doctorId || !treatedAt || !createdBy){
+        return res.status(405).json({message:"ข้อมูลไม่ครบตามที่ API ต้องการ"})
+    }
 
     const dataTreatment = await treatment.findOne({ where: { id: treatmentId } })
     if (!dataTreatment) {

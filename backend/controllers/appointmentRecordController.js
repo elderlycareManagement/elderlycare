@@ -1,4 +1,3 @@
-const { where } = require('sequelize')
 const db = require('../models')
 
 const appointmentRecord = db.appointmentRecord
@@ -10,7 +9,7 @@ const getAllAppoint = async (req,res) => {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const dataAppoint = await appointmentRecord.findAll()
-        return res.status(200).json({message:"ค้นหาข้อมูลเสร็จสิ้น"})
+        return res.status(200).json({message:"ค้นหาข้อมูลเสร็จสิ้น",data:dataAppoint})
     } catch (error) {
         console.log(error)
         return res.status(500).json({message:"เกิดข้อผิดพลาด ไม่สามารถเพิ่มข้อมูลได้"})
@@ -25,7 +24,7 @@ const searchAppoint = async (req,res) => {
 
         const whereClause = {}
         const {branchId} = req.params
-        const {id,doctorId} = req.body
+        const {id,doctorId} = req.query
         if(id){
             whereClause.id = id
         }
@@ -35,12 +34,14 @@ const searchAppoint = async (req,res) => {
         if(branchId){
             whereClause.appointAt = branchId
         }
-
-        const dataAppoint = await appointmentRecord.findAll({where:{whereClause}})
+        const dataAppoint = await appointmentRecord.findAll({where:whereClause})
+        if(!dataAppoint){
+            return res.status(400).json({message:"ไม่พบข้อมูล"})
+        }
         return res.status(200).json({message:"พบข้อมูล",data:dataAppoint})
     } catch (error) {
         console.log(error)
-        return res.status(500).json({message:"เกิดข้อผิดพลาด ไม่สามารถเพิ่มข้อมูลได้"})
+        return res.status(500).json({message:"เกิดข้อผิดพลาด "})
     }
     }
 
@@ -66,7 +67,7 @@ const searchAppointDate = async  (req,res) => {
             whereClause.isActive = isActive
         }
 
-        const dataAppointDate = await appointmentDate.findAll({where:{whereClause}})
+        const dataAppointDate = await appointmentDate.findAll({where:whereClause})
         return res.status(200).json({message:"พบข้อมูล",data:dataAppointDate})
     } catch (error) {
         console.log(error)
@@ -81,15 +82,17 @@ const addAppointment = async (req,res) => {
         }
 
         const {patientId,description,doctorId,branchId,createId} = req.body
-
+        const checkAppoint = await appointmentRecord.findOne({where:{patientId}})
+        if(checkAppoint){
+            return res.status(400).json({message:"มีข้อมูลการนัดอยู่แล้ว"})
+        }
         const addAppointment = appointmentRecord.create({
             patientId:patientId,
             description:description,
             appointTo:doctorId,
             appointAt:branchId,
-            createBy:createId
+            createdBy:createId
         })
-
         return res.status(200).json({message:"เพิ่มข้อมูลเสร็จสิ้น"})
     } catch (error) {
         console.log(error)
@@ -126,7 +129,7 @@ const editAppoint = async (req,res) => {
 
         const {appointId} = req.params
         const {description,doctorId,branchId,createId} = req.body
-        const dataAppoint = appointmentRecord.findOne({where:{id:appointId}})
+        const dataAppoint = await appointmentRecord.findOne({where:{id:appointId}})
         if(!dataAppoint){
             return res.status(400).json({message:"ไม่่พบข้อมูลการนัดหมาย"})
         }
@@ -136,7 +139,7 @@ const editAppoint = async (req,res) => {
             appointAt:branchId,
             createBy:createId
         })
-        dataAppoint.save()
+        await dataAppoint.save()
         return res.status(200).json({message:"แก้ไขข้อมูลการนัดเสร็จสิ้น"})
     } catch (error) {
         console.log(error)
@@ -151,14 +154,14 @@ const editAppointDate = async (req,res) => {
 
         const {appointId} = req.params
         const {appointDate} = req.body
-        const dataAppoint = appointmentDate.findOne({where:{id:appointId}})
+        const dataAppoint = await appointmentDate.findOne({where:{id:appointId}})
         if(!dataAppoint){
             return res.status(400).json({message:"ไม่่พบข้อมูลการนัดหมาย"})
         }
         dataAppoint.set({
             appointDate
         })
-        dataAppoint.save()
+        await dataAppoint.save()
         return res.status(200).json({message:"แก้ไขข้อมูลการนัดเสร็จสิ้น"})
     } catch (error) {
         console.log(error)
@@ -174,14 +177,14 @@ const delAppoint = async (req,res) => {
 
         const {appointId}= req.params
         
-        const delAppoint = appointmentRecord.findOne({where:{id:appointId}})
+        const delAppoint = await appointmentRecord.findOne({where:{id:appointId}})
         if(!delAppoint){
             return res.status(400).json({message:"ไม่พบข้อมูลของการนัด"})
         }
         delAppoint.set({
             isActive:"false"
         })
-        delAppoint.save()
+        await delAppoint.save()
         return res.status(200).json({message:"ลบข้อมูลเสร็จสิ้น"})
     } catch (error) {
         console.log(error)

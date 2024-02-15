@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { json } = require('sequelize')
 
+
 const employee = db.employee
 
 
@@ -20,74 +21,6 @@ const getAllEmployee = async (req, res) => {
     }
 }
 
-const getEmployeeById = async (req, res) => {
-    try {
-        if (req.user.role != '7') {
-            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
-        }
-        const { id } = req.params
-        if (!id) {
-            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
-        }
-        const dataEmployee = await employee.findOne({ where: { id: id } })
-
-        if (!dataEmployee) {
-            return res.status(400).json({ message: "ไม่พบข้อมูล จาก ID ที่ส่งมา" })
-        }
-
-        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
-    }
-}
-
-const getAllEmployeeByBranch = async (req, res) => {
-    try {
-        if (req.user.role != '7') {
-            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
-        }
-        const { branchId } = req.params
-        if (!branchId) {
-            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
-        }
-
-        const dataEmployee = await employee.findAll({ where: { branchIdd: branchId } })
-        if (!dataEmployee) {
-            return res.status(400).json({ message: "ไม่พบข้อมูล จาก branchId ที่ส่งมา" })
-        }
-        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
-
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
-    }
-}
-
-const getEmployeeByRole = async (req, res) => {
-    try {
-        if (req.user.role != '7') {
-            return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
-        }
-
-        const { role } = req.params
-        if (!role) {
-            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
-        }
-
-        const dataEmployee = await employee.findAll({ where: { role: role } })
-        if (!dataEmployee) {
-            return res.status(400).json({ message: "ไม่พบข้อมูล จาก branchId ที่ส่งมา" })
-        }
-
-        return res.status(200).json({ message: "ค้นหาข้อมูลเสร็จสิ้น", data: dataEmployee })
-
-    } catch (error) {
-        console.log(error)
-        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
-    }
-}
-
 const searchEmployeeBybranchActive = async (req, res) => {
     try {
         if (req.user.role != '7') {
@@ -95,13 +28,25 @@ const searchEmployeeBybranchActive = async (req, res) => {
         }
 
         const { branchId } = req.params
-        const { isActive } = req.query
+        const { isActive , role,id} = req.query
+        const whereClase = {}
+        
 
-        if (!branchId || !isActive) {
+        if (!branchId) {
             return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
         }
+        whereClase.branchId = branchId
+        if(isActive){
+            whereClase.isActive = isActive
+        }
+        if(role) {
+            whereClase.role = role
+        }
+        if(id){
+            whereClase.id = id
+        }
 
-        const dataEmployee = await employee.findAll({ where: { branchId:branchId , isActive:isActive } })
+        const dataEmployee = await employee.findAll({ where: whereClase })
         if(!dataEmployee){
             return res.status(400).json({ message: "ไม่พบข้อมูล จาก branchId และ isActive ที่ส่งมา" })
         }
@@ -120,14 +65,12 @@ const AddEmployee = async (req, res) => {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
-        const { firstname, lastname, email, tel, password } = req.body
+        const { firstname, lastname, email, tel, password,branchId } = req.body
         const dataEmployee = await employee.findAll({
             raw: true, order: [
                 ['empCode', 'ASC']
             ]
         })
-
-        // สร้าง empCode ล่าสุด
 
         const countEmployee = dataEmployee.length - 1
         const empCodeLast = dataEmployee[countEmployee].empCode
@@ -136,7 +79,6 @@ const AddEmployee = async (req, res) => {
         empSub = empSub + 1
         var empSubStr = empSub.toString()
         const empCode = "G" + empSubStr.padStart(4, '0')
-        // ได้ empCode
 
         const hashPassword = await bcrypt.hash(password, 10)
         const createEmployee = await employee.create({
@@ -146,7 +88,8 @@ const AddEmployee = async (req, res) => {
             email,
             tel,
             password: hashPassword,
-            role: "0"
+            role: "0",
+            branchId
         })
 
         return res.status(200).json({ message: "create employee successfully" })
@@ -159,7 +102,12 @@ const AddEmployee = async (req, res) => {
 
 const EditEmployee = async (req, res) => {
     try {
-        const { id, firstname, lastname, email, tel } = req.body
+        const { firstname, lastname, email, tel } = req.body
+
+        if( !firstname || !lastname || !email || !tel){
+            return res.status(405).json({message:"ข้อมูลไม่ครบตามที่ API ต้องการ"})
+        }
+        const {id} = req.params
 
         const dataEmployee = await employee.findOne({ where: { id: id } })
 
@@ -181,24 +129,37 @@ const EditEmployee = async (req, res) => {
 
 const EditPassword = async (req, res) => {
     try {
-        const { id, oldPassword, password, confirmPassword } = req.body
+        const {oldPassword, password, confirmPassword } = req.body
 
+        if(!oldPassword || !password || !confirmPassword){
+            return res.status(405).json({message:"ข้อมูลไม่ครบตามที่ API ต้องการ"})
+        }
+
+        const {id} = req.params
         const dataEmployee = await employee.findOne({ where: { id: id } })
         if (!dataEmployee) {
-            return res.status(401).json({ message: "ไม่พบผู้ใช้งาน" })
+            return res.status(400).json({ message: "ไม่พบผู้ใช้งาน" })
         }
-        if (dataEmployee.password === oldPassword) {
+        const checkPassword = await bcrypt.compare(oldPassword,dataEmployee.password)
+        console.log(checkPassword)
+        if (checkPassword) {
             if (password == confirmPassword) {
+                const hashPassword = await bcrypt.hash(password, 10)
                 dataEmployee.set({
-                    password: password
+                    password: hashPassword
                 })
-                await dataEmployee.save();
-                return res.status(200).json({ message: "แก้ไขรหัวผ่านเสร็จสิ้น" })
+                if(await dataEmployee.save()){
+                    return res.status(200).json({ message: "แก้ไขรหัสผ่านเสร็จสิ้น" })
+                }else{
+                    return res.status(600).json({message:"แก้ไขไม่ได้"})
+                }
+                
+                
             } else {
-                res.status(401).json({ message: "รหัสผ่านใหม่ไม่ตรงกัน" })
+                res.status(400).json({ message: "รหัสผ่านใหม่ไม่ตรงกัน" })
             }
         } else {
-            return res.status(401).json({ message: "รหัสผ่านผ่านเดิมไม่ตรงกัน" })
+            return res.status(400).json({ message: "รหัสผ่านผ่านเดิมไม่ตรงกัน" })
         }
 
     } catch (error) {
@@ -254,13 +215,10 @@ const Login = async (req, res) => {
 
 module.exports = {
     getAllEmployee,
-    getEmployeeById,
     AddEmployee,
     EditEmployee,
     EditPassword,
     DeleteEmployee,
     Login,
-    getAllEmployeeByBranch,
     searchEmployeeBybranchActive,
-    getEmployeeByRole
 }

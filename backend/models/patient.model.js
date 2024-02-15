@@ -36,6 +36,10 @@ module.exports = (sequelize,DataTypes) => {
             type: DataTypes.STRING(200),
             allowNull:false
         },
+        branchId:{
+            type:DataTypes.INTEGER,
+            allowNull:false
+        }
 })
     return patient
 }
