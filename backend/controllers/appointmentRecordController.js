@@ -52,19 +52,15 @@ const searchAppointDate = async  (req,res) => {
         }
 
         const whereClause = {}
-        const {branchId} = req.params
-        const {id,appointDate,isActive} = req.body
+        const {id,appointDate,appointmentId} = req.body
         if(id){
             whereClause.id = id
         }
         if(appointDate){
             whereClause.appointDate = appointDate
         }
-        if(branchId){
-            whereClause.appointAt = branchId
-        }
-        if(isActive){
-            whereClause.isActive = isActive
+        if(appointmentId){
+            whereClause.appointmentId = appointmentId
         }
 
         const dataAppointDate = await appointmentDate.findAll({where:whereClause})
@@ -159,7 +155,7 @@ const editAppointDate = async (req,res) => {
             return res.status(400).json({message:"ไม่่พบข้อมูลการนัดหมาย"})
         }
         dataAppoint.set({
-            appointDate
+            appointDate,
         })
         await dataAppoint.save()
         return res.status(200).json({message:"แก้ไขข้อมูลการนัดเสร็จสิ้น"})

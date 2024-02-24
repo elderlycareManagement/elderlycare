@@ -1,11 +1,8 @@
 const db = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { json } = require('sequelize')
-
 
 const employee = db.employee
-
 
 const getAllEmployee = async (req, res) => {
     try {
@@ -33,7 +30,7 @@ const searchEmployeeBybranchActive = async (req, res) => {
         
 
         if (!branchId) {
-            return res.status(400).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
+            return res.status(401).json({ message: "คุณไม่ได้ส่งข้อมูลตามที่ API ขอ" })
         }
         whereClase.branchId = branchId
         if(isActive){
@@ -192,12 +189,12 @@ const Login = async (req, res) => {
         }
         const checkEmail = await employee.findOne({ where: { email: email } })
         if (!checkEmail) {
-            return res.status(401).json({ message: "Email ไม่ถูกต้อง" })
+            return res.status(401).json({ message: "Email หรือ Password ไม่ถูกต้อง" })
         }
 
         const checkPassword = await bcrypt.compare(password, checkEmail.password);
         if (!checkPassword) {
-            return res.status(401).json("password ไม่ถูกต้อง");
+            return res.status(401).json("Email หรือ Password ไม่ถูกต้อง");
         }
 
         const tokenJWT = jwt.sign({
