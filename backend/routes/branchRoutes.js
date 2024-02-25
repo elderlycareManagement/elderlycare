@@ -52,7 +52,9 @@ const passport = require('passport')
  *   post:
  *     summary: Add Branch
  *     tags: [Branch Controller]
- *     content:
+ *     requestBody:
+ *       required: true
+ *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/AddBranch'
@@ -73,7 +75,9 @@ const passport = require('passport')
  *   post:
  *     summary: Edit Branch
  *     tags: [Branch Controller]
- *     content:
+ *     requestBody:
+ *       required: true
+ *       content:
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/AddBranch'

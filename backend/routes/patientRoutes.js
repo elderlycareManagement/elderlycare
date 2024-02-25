@@ -174,7 +174,7 @@ const passport = require('passport')
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/IllnessHistory'
+ *             $ref: '#/components/schemas/AddIllnessHistory'
  *     responses:
  *       200:
  *         description: เพิ่มข้อมูลผู้ป่วยเสร็จสิ้น.

@@ -97,7 +97,7 @@ const passport = require('passport')
  * /api/appoint/addAppoint:
  *   post:
  *     summary: Add Appointment
- *     tags: [Appoint Controller]
+ *     tags: [Appointment Controller]
  *     requestBody:
  *       required: true
  *       content:
