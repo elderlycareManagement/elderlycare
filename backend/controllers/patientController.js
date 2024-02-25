@@ -57,6 +57,9 @@ const addPatient = async (req, res) => {
         if (req.user.role != '7') {
             return res.status(401).json({ message: "ไม่มีสิทธิ์ใช้งาน API นี้" })
         }
+
+        const branchId = req.params;
+
         const reqData = [
             "firstName",
             "lastName",
@@ -88,7 +91,8 @@ const addPatient = async (req, res) => {
             lastReceived,
             consciousness,
             isActive: "true",
-            patientHistory
+            patientHistory,
+            branchId
         })
         return res.status(200).json({ message: "เพิ่มผู้ใช้เสร็จสิ้น" });
     } catch (error) {

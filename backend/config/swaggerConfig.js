@@ -4,7 +4,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'API Elderlycard Management',
+    title: 'API Elderlycare Management',
     version: '1.0.0',
   },
   servers: [{

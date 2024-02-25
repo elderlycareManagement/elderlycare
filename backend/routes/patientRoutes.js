@@ -76,6 +76,12 @@ const passport = require('passport')
  *   post:
  *     summary: Add Patient
  *     tags: [Patient Controller]
+ *     parameters:
+ *       - in: parameter
+ *         name: branchId
+ *         schema:
+ *           type: integer
+ *         required: true
  *     requestBody:
  *       required: true
  *       content:
@@ -92,7 +98,7 @@ const passport = require('passport')
  *         description: Some server error
  *
  */
-    patientRoutes.post('/addPatient',passport.authenticate('jwt', { session: false }),patientController.addPatient)
+    patientRoutes.post('/addPatient/:branchId',passport.authenticate('jwt', { session: false }),patientController.addPatient)
 
 /**
  * @swagger
