@@ -29,7 +29,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/employee',RoutesEmployee)
 app.use('/api/patient',RoutesPatient)
 app.use('/api/treatment',RoutesTreatmentRecord)
-app.use('/api/appointment',RoutesAppointment)
+app.use('/api/appoint',RoutesAppointment)
 app.use('/api/vitalSign',RoutesVitalSign)
 app.use('/api/branch',RoutesBranch)
 
