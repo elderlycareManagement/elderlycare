@@ -29,7 +29,7 @@ const passport = require('passport')
  *     summary: Get Branch By Id
  *     tags: [Branch Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: branchId
  *         schema:
  *           type: integer
@@ -72,7 +72,7 @@ const passport = require('passport')
 /**
  * @swagger
  * /api/branch/editBranch/{branchId}:
- *   post:
+ *   put:
  *     summary: Edit Branch
  *     tags: [Branch Controller]
  *     requestBody:
@@ -81,6 +81,12 @@ const passport = require('passport')
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/AddBranch'
+ *     parameters:
+ *       - in: path
+ *         name: branchId
+ *         schema:
+ *           type: integer
+ *         required: true
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลสำเร็จ.
@@ -99,7 +105,7 @@ const passport = require('passport')
  *     summary: Delete Branch
  *     tags: [Branch Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: branchId
  *         schema:
  *           type: integer
@@ -113,7 +119,7 @@ const passport = require('passport')
  *       500:
  *         description: เกิดข้อผิดพลาด
  */
-    branchRoutes.delete(':branchId',passport.authenticate('jwt',{session:false}),branchController.delBranch)
+    branchRoutes.delete('/:branchId',passport.authenticate('jwt',{session:false}),branchController.delBranch)
 
 module.exports = branchRoutes
 

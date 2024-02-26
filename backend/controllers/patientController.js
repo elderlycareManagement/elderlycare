@@ -58,7 +58,7 @@ const addPatient = async (req, res) => {
             return res.status(401).json({ message: "ไม่มีสิทธิ์ใช้งาน API นี้" })
         }
 
-        const branchId = req.params;
+        const {branchId} = req.params;
 
         const reqData = [
             "firstName",

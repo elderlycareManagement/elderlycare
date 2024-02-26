@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         role:{
             type: DataTypes.STRING(1),
+            allowNull:false
         },
         branchId:{
             type:DataTypes.INTEGER,

@@ -34,7 +34,7 @@ const passport = require('passport')
  *     summary: Search Patient By BranchId
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: branchId
  *         schema:
  *           type: integer
@@ -77,7 +77,7 @@ const passport = require('passport')
  *     summary: Add Patient
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: branchId
  *         schema:
  *           type: integer
@@ -107,7 +107,7 @@ const passport = require('passport')
  *     summary: Add Initial
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -138,7 +138,7 @@ const passport = require('passport')
  *     summary: Add HealthEvaluation
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -169,7 +169,7 @@ const passport = require('passport')
  *     summary: Add HealthEvaluation
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -200,7 +200,7 @@ const passport = require('passport')
  *     summary: Edit Patient
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -231,7 +231,7 @@ const passport = require('passport')
  *     summary: Edit Patient
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -262,7 +262,7 @@ const passport = require('passport')
  *     summary: Edit Patient
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -293,7 +293,7 @@ const passport = require('passport')
  *     summary: Edit Patient
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
@@ -323,7 +323,7 @@ const passport = require('passport')
  *     summary: Delete Patient
  *     tags: [Patient Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer

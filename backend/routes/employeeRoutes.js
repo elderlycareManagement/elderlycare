@@ -32,7 +32,7 @@ employeeRoute.get('/getAllEmployee', passport.authenticate('jwt', { session: fal
  *     summary: Search Employee By BranchId
  *     tags: [Employee Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: branchId
  *         schema:
  *           type: integer
@@ -44,11 +44,6 @@ employeeRoute.get('/getAllEmployee', passport.authenticate('jwt', { session: fal
  *         required: false
  *       - in: query
  *         name: role
- *         schema:
- *           type: String
- *         required: false
- *       - in: query
- *         name: isActive
  *         schema:
  *           type: String
  *         required: false
@@ -78,7 +73,7 @@ employeeRoute.get('/searchEmployee/:branchId', passport.authenticate('jwt', { se
  *             $ref: '#/components/schemas/AddEmployee'
  *     responses:
  *       200:
- *         description: The created book.
+ *         description: เพิ่มข้อมูลผู้ใช้งานเสร็จสิ้น.
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -124,12 +119,12 @@ employeeRoute.post('/login', employeeController.Login)
  *           schema:
  *             $ref: '#/components/schemas/EditEmployee'
  *     parameters:
- *       - in: parameter
- *         name: EmployeeId
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: The ID of the branch to search for employees.
+ *         description: ID Employee.
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลพนักงานเสร็ตสิ้น.
@@ -154,12 +149,12 @@ employeeRoute.put('/editEmployee/:id', passport.authenticate('jwt', { session: f
  *           schema:
  *             $ref: '#/components/schemas/EditPassword'
  *     parameters:
- *       - in: parameter
- *         name: EmployeeId
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: The ID of the branch to search for employees.
+ *         description: ID Employee
  *     responses:
  *       200:
  *         description: แก้ไขรหัสผ่านเสร็จสิ้นพนักงานเสร็ตสิ้น.
@@ -167,7 +162,6 @@ employeeRoute.put('/editEmployee/:id', passport.authenticate('jwt', { session: f
  *         description: ไม่มีสิทธิ์ใช้งาน API .
  *       500:
  *         description: เกิดข้อผิดพลาด
- *
  */
 employeeRoute.patch('/editPassword/:id', passport.authenticate('jwt', { session: false }), employeeController.EditPassword)
 
@@ -178,12 +172,12 @@ employeeRoute.patch('/editPassword/:id', passport.authenticate('jwt', { session:
  *     summary: DeleteEmployee
  *     tags: [Employee Controller]
  *     parameters:
- *       - in: parameter
- *         name: EmployeeId
+ *       - in: path
+ *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: The ID of the branch to search for employees.
+ *         description: ID Employee .
  *     responses:
  *       200:
  *         description: บล็อคผู้ใช้งานเสร็จสิ้น.
@@ -213,7 +207,7 @@ module.exports = employeeRoute
  *         tel:
  *           type: string
  *         branchId:
- *            type: int
+ *            type: integer
  *       required:
  *         - firstName
  *         - lastName
@@ -252,5 +246,9 @@ module.exports = employeeRoute
  *       type: object
  *       properties:
  *          password:
+ *             type: string
+ *          oldPassword:
+ *             type: string
+ *          confirmPassword:
  *             type: string
  */
