@@ -206,6 +206,8 @@ module.exports = employeeRoute
  *           type: string
  *         tel:
  *           type: string
+ *         role:
+ *           type: string
  *         branchId:
  *            type: integer
  *       required:

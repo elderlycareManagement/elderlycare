@@ -60,7 +60,7 @@ const AddEmployee = async (req, res) => {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
-        const { firstName, lastName, email, tel, password, branchId } = req.body
+        const { firstName, lastName, email, tel, password, branchId ,role} = req.body
         const dataEmployee = await employee.findAll({
             raw: true, order: [
                 ['empCode', 'ASC']
@@ -88,7 +88,7 @@ const AddEmployee = async (req, res) => {
             email,
             tel,
             password: hashPassword,
-            role: "7",
+            role,
             branchId,
         })
 

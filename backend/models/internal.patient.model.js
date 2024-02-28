@@ -10,6 +10,10 @@ module.exports = (sequelize,DataTypes) => {
         },
         dischardedDate:{
             type:DataTypes.DATE,
+            allowNull:true
+        },
+        branchId:{
+            type:DataTypes.INTEGER,
             allowNull:false
         }
     })

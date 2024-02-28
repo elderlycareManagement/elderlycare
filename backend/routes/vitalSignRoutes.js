@@ -7,10 +7,16 @@ const passport = require('passport')
  * tags:
  *   name: VitalSign Controller
  *   description: VitalSign Management API
- * /api/vitalSign/getAllVitalSign:
+ * /api/vitalSign/getVitalSign/{patientId}:
  *   get:
  *     summary: GetAllVitalsign
  *     tags: [VitalSign Controller]
+ *     parameters:
+ *       - in: path
+ *         name: patientId
+ *         schema:
+ *           type: integer
+ *         required: true
  *     responses:
  *       200:
  *         description: ดึงข้อมูลสำเร็จ.
@@ -30,12 +36,11 @@ vitalSignRoutes.get('/getVitalSign/:patientId',passport.authenticate('jwt',{sess
  *     summary: Add VitalSign
  *     tags: [VitalSign Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: patientId
  *         schema:
  *           type: integer
  *         required: true
- *         description: The ID of the branch to search for employees.
  *     requestBody:
  *       required: true
  *       content:

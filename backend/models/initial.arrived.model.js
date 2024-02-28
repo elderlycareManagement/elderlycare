@@ -18,7 +18,7 @@ module.exports = (sequelize,DataTypes) => {
         },
         medicalDiagnosis:{
             type:DataTypes.STRING(200),
-            allowNull:false
+            allowNull:true
         },
         currentIllness:{
             type:DataTypes.STRING(200),
