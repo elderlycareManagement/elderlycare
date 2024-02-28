@@ -9,7 +9,7 @@ const vitalSign = db.vitalSign
 
 const searchPatient = async (req, res) => {
     try {
-        if (req.user.role != '7' && req.user.role != '1' && req.user.role != '2' && req.user.role != '3') {
+        if (req.user.role != '7' || req.user.role != '1' || req.user.role != '2' || req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const {branchId} = req.params
@@ -41,7 +41,7 @@ const searchPatient = async (req, res) => {
 
 const getAllPatient = async (req, res) => {
     try {
-        if (req.user.role != '7' && req.user.role != '1' && req.user.role != '2' && req.user.role != '3') {
+        if (req.user.role != '7' || req.user.role != '1' || req.user.role != '2' || req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -252,7 +252,7 @@ const addPatientIllnessHistory = async (req, res) => {
 
 const delPatient = async (req, res) => {
     try {
-        if (req.user.role != '2' && req.user.role != '3') {
+        if (req.user.role != '2' || req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const {patientId} = req.params
@@ -276,7 +276,7 @@ const delPatient = async (req, res) => {
 
 const editPatient = async (req, res) => {
     try {
-        if (req.user.role != '2' && req.user.role != '3' && req.user.role != '4') {
+        if (req.user.role != '2' || req.user.role != '3' || req.user.role != '4') {
             return res.status(401).json({ message: "ไม่มีสิทธิ์ใช้งาน API นี้" })
         }
         const {patientId} = req.params
@@ -322,7 +322,7 @@ const editPatient = async (req, res) => {
 
 const editPatientInitial = async (req, res) => {
     try {
-        if (req.user.role != '2' && req.user.role != '3' && req.user.role != '4') {
+        if (req.user.role != '2' || req.user.role != '3' || req.user.role != '4') {
             return res.status(401).json({ message: "ไม่มีสิทธิ์ใช้งาน API นี้" })
         }
         const {patientId} = req.params
@@ -364,7 +364,7 @@ const editPatientInitial = async (req, res) => {
 
 const editPatientHealthEvaluation = async (req, res) => {
     try {
-        if (req.user.role != '2' && req.user.role != '3' && req.user.role != '4') {
+        if (req.user.role != '2' || req.user.role != '3' || req.user.role != '4') {
             return res.status(401).json({ message: "ไม่มีสิทธิ์ใช้งาน API นี้" })
         }
         const reqData = [
@@ -427,7 +427,7 @@ const editPatientHealthEvaluation = async (req, res) => {
 
 const editPatientIllness = async (req, res) => {
     try {
-        if (req.user.role != '2' && req.user.role != '3' && req.user.role != '4') {
+        if (req.user.role != '2' || req.user.role != '3' || req.user.role != '4') {
             return res.status(401).json({ message: "ไม่มีสิทธิ์ใช้งาน API นี้" })
         }
         const reqData = [
