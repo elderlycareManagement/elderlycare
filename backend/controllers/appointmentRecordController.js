@@ -5,7 +5,7 @@ const appointmentDate = db.appointmentDate
 
 const getAllAppoint = async (req,res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1' ||req.user.role != '2' || req.user.role != '3') {
+        if (req.user.role != '7' && req.user.role != '1' &&req.user.role != '2' && req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const dataAppoint = await appointmentRecord.findAll()
@@ -18,7 +18,7 @@ const getAllAppoint = async (req,res) => {
 
 const searchAppoint = async (req,res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1' ||req.user.role != '2' || req.user.role != '3') {
+        if (req.user.role != '7' && req.user.role != '1' &&req.user.role != '2' && req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -47,7 +47,7 @@ const searchAppoint = async (req,res) => {
 
 const searchAppointDate = async  (req,res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1' ||req.user.role != '2' || req.user.role != '3') {
+        if (req.user.role != '7' && req.user.role != '1' &&req.user.role != '2' && req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -73,7 +73,7 @@ const searchAppointDate = async  (req,res) => {
 
 const addAppointment = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -97,7 +97,7 @@ const addAppointment = async (req,res) => {
 }
 const addAppointmentDate = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -119,7 +119,7 @@ const addAppointmentDate = async (req,res) => {
 
 const editAppoint = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -144,7 +144,7 @@ const editAppoint = async (req,res) => {
 }
 const editAppointDate = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 

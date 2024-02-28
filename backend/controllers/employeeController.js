@@ -6,7 +6,7 @@ const employee = db.employee
 
 const getAllEmployee = async (req, res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1' || req.user.role != '2' || req.user.role != '3') {
+        if (req.user.role != '7' && req.user.role != '1' && req.user.role != '2' && req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -56,7 +56,7 @@ const searchEmployeeBybranchActive = async (req, res) => {
 
 const AddEmployee = async (req, res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1') {
+        if (req.user.role != '7' && req.user.role != '1') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -102,7 +102,7 @@ const AddEmployee = async (req, res) => {
 
 const EditEmployee = async (req, res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1' || req.user.role != '2' || req.user.role != '3') {
+        if (req.user.role != '7' && req.user.role != '1' && req.user.role != '2' && req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const { firstName, lastName, email, tel } = req.body
@@ -132,7 +132,7 @@ const EditEmployee = async (req, res) => {
 
 const EditPassword = async (req, res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1' || req.user.role != '2' || req.user.role != '3') {
+        if (req.user.role != '7' && req.user.role != '1' && req.user.role != '2' && req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const { oldPassword, password, confirmPassword } = req.body
@@ -176,7 +176,7 @@ const EditPassword = async (req, res) => {
 
 const DeleteEmployee = async (req, res) => {
     try {
-        if (req.user.role != '7' || req.user.role != '1') {
+        if (req.user.role != '7' && req.user.role != '1') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const { id } = req.params

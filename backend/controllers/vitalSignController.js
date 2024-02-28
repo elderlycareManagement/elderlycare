@@ -4,7 +4,7 @@ const vitalSign = db.vitalSign
 
 const getVitalSign = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -24,7 +24,7 @@ const getVitalSign = async (req,res) => {
 
 const addVitalSign = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const reqData = [
@@ -67,7 +67,7 @@ const addVitalSign = async (req,res) => {
 
 const editVitalSign = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const reqData = [
@@ -114,7 +114,7 @@ const editVitalSign = async (req,res) => {
 
 const delVital = async (req,res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const {vitalSignId} = req.params

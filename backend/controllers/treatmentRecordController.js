@@ -4,7 +4,7 @@ const treatment = db.treatmentRecord
 
 const getAllTreatment = async (req, res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
 
@@ -39,7 +39,7 @@ const addTreatment = async (req, res) => {
 
 const searchTreatment = async (req, res) => {
     try {
-        if (req.user.role != '2'|| req.user.role != '3') {
+        if (req.user.role != '2'&& req.user.role != '3') {
             return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
         }
         const { branchId } = req.params
@@ -62,7 +62,7 @@ const searchTreatment = async (req, res) => {
 }
 
 const editTreeatment = async (req, res) => {
-    if (req.user.role != '2'|| req.user.role != '3' || req.user.role != '4') {
+    if (req.user.role != '2'&& req.user.role != '3' && req.user.role != '4') {
         return res.status(401).json({ message: 'ไม่มีสิทธิ์ใช้งาน API นี้' })
     }
     const { treatmentId } = req.params
