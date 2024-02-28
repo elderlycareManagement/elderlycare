@@ -7,7 +7,7 @@ const app = express()
 
 const corsOptions = {
     origin:'*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELECT'
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
 }
 
 // const RouterUsers = require('./routers/routesUsers')

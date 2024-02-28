@@ -29,7 +29,7 @@ const searchPatient = async (req, res) => {
 
         const dataPatient = await patient.findAll({ where: whereClause })
         if (!dataPatient) {
-            return res.status(200).json({ message: "ไม่พบข้อมูลผู้ป่วย" })
+            return res.status(404).json({ message: "ไม่พบข้อมูลผู้ป่วย" })
         }
         return res.status(200).json({ message: 'พบข้อมูล', data: dataPatient })
 
@@ -72,7 +72,7 @@ const addPatient = async (req, res) => {
         ];
         const CheckReqData = reqData.every(field => req.body[field] !== undefined)
         if (!CheckReqData) {
-            return res.status(400).json({ message: "กรุณากรอกข้อมูลทั้งหมด" });
+            return res.status(400).json({ message: "กรุณาส่งข้อมูลให้ครบตาม Require" });
         }
 
         const { firstName, lastName, peopleCode, receivedDate, recentIllness, lastReceived, consciousness, patientHistory } = req.body

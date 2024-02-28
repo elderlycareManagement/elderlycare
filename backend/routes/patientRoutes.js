@@ -61,9 +61,10 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: ดึงข้อมูลสำเร็จ.
+ *       404:
+ *         description: ไม่พบข้อมูลผู้ป่วย
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
- * 
  *       500:
  *         description: เกิดข้อผิดพลาด
  *
@@ -91,6 +92,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: The created book.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -122,6 +125,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: เพิ่มข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -153,6 +158,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: เพิ่มข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -184,6 +191,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: เพิ่มข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -215,6 +224,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -246,6 +257,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -277,6 +290,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -308,6 +323,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: กรุณาส่งข้อมูลให้ครบตาม Require
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
@@ -331,6 +348,8 @@ const passport = require('passport')
  *     responses:
  *       200:
  *         description: แก้ไขข้อมูลผู้ป่วยเสร็จสิ้น.
+ *       400:
+ *         description: ไม่พบผู้ป่วยที่จะแก้ไข
  *       401:
  *         description: ไม่มีสิทธิ์ใช้งาน API
  * 
