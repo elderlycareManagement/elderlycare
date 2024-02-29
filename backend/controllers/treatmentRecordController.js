@@ -87,10 +87,32 @@ const editTreeatment = async (req, res) => {
 
 
 }
+const tranferPatient = async (req,res) => {
+    try {
+        if(req.user.role != '2'){
+            return res.status(401).json({message:"ไม่มีสิทธิ์ใช้งาน API"})
+        }
+
+        const {treatmentId,branchId} = req.params
+        const dataTreatment = await treatment.findOne({where:{id:treatmentId}})
+        if(!dataTreatment){
+            return res.status(400).json({message:"ไม่พบข้อมูลผู้ป่วย"})
+        }
+        dataTreatment.set({
+            tranferPatient:branchId
+        })
+        dataTreatment.save()
+        return res.status(200).json({message:"ย้ายผู้ป่วยเสร็จสิ้น"})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
+    }
+}
 
 module.exports = {
     addTreatment,
     getAllTreatment,
     searchTreatment,
-    editTreeatment
+    editTreeatment,
+    tranferPatient
 }

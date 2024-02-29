@@ -425,6 +425,7 @@ const editPatientHealthEvaluation = async (req, res) => {
     
 }
 
+
 const editPatientIllness = async (req, res) => {
     try {
         if (req.user.role != '2' && req.user.role != '3' && req.user.role != '4') {
@@ -471,6 +472,8 @@ const editPatientIllness = async (req, res) => {
     }
     
 }
+
+
 
 module.exports = {
     addPatientIllnessHistory,

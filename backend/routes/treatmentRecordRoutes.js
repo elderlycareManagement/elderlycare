@@ -102,7 +102,7 @@ const passport = require('passport')
  *     summary: Edit Treatment
  *     tags: [Treatment Controller]
  *     parameters:
- *       - in: parameter
+ *       - in: path
  *         name: treatmentId
  *         schema:
  *           type: integer
@@ -127,6 +127,34 @@ const passport = require('passport')
     treatmentRoutes.put('/editTreatment/:treatmentId',passport.authenticate('jwt',{session:false}),treatmentRecordController.editTreeatment)
     // treatmentRoutes.delete('treatment/:id',passport.authenticate('jwt',{session:false}),treatmentRecordController)
 
+   /**
+ * @swagger
+ * /api/treatment/tranfer/{treatmentId}/{branchId}:
+ *   patch:
+ *     summary: Edit Treatment
+ *     tags: [Treatment Controller]
+ *     parameters:
+ *       - in: path
+ *         name: treatmentId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *       - in: path
+ *         name: branchId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: แก้ไขข้อมูลเสร็จสิ้น.
+ *       401:
+ *         description: ไม่มีสิทธิ์ใช้งาน API
+ * 
+ *       500:
+ *         description: Some server error
+ *
+ */
+    treatmentRoutes.patch('/tranfer/:treatmentId/:branchId',passport.authenticate('jwt',{session:false}),treatmentRecordController.tranferPatient)
     module.exports = treatmentRoutes
 
     /**
