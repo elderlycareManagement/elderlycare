@@ -125,7 +125,7 @@ const passport = require('passport')
  *
  */
     treatmentRoutes.put('/editTreatment/:treatmentId',passport.authenticate('jwt',{session:false}),treatmentRecordController.editTreeatment)
-    // treatmentRoutes.delete('treatment/:id',passport.authenticate('jwt',{session:false}),treatmentRecordController)
+    treatmentRoutes.delete('treatment/:id',passport.authenticate('jwt',{session:false}),treatmentRecordController.endTreatment)
 
    /**
  * @swagger

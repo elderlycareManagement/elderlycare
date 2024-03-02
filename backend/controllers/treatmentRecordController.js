@@ -28,7 +28,8 @@ const addTreatment = async (req, res) => {
             description: description,
             treatedBy: doctorId,
             treatedAt: treatedAt,
-            createdBy: createdBy
+            createdBy: createdBy,
+            isActive:"true"
         })
         return res.status(200).json({ message: "เพิ่มการรักษาคนไข้เสร็จสิ้น" })
     } catch (error) {
@@ -109,10 +110,36 @@ const tranferPatient = async (req,res) => {
     }
 }
 
+const endTreatment = async (req,res) => {
+    try {
+        if(req.user.role != '2'){
+            return res.status(401).json({message:"ไม่มีสิทธิ์ใช้งาน API"})
+        }
+        const {treatmentId} = req.params
+
+        const dataTreatment = await treatment.findOne({where:{id:treatmentId}})
+
+        if(!dataTreatment){
+            return res.status(400).json({message:"ไม่พบการรักษา"})
+        }
+
+        dataTreatment.set({
+            isActive:"false"
+        })
+        dataTreatment.save()
+        return res.status(200).json({message:"บันทึกจบการรักษาเสร็จสิ้น"})
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: "เกิดข้อผิดพลาด" })
+    }
+}
+
 module.exports = {
     addTreatment,
     getAllTreatment,
     searchTreatment,
     editTreeatment,
-    tranferPatient
+    tranferPatient,
+    endTreatment
 }

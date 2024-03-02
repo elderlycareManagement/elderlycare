@@ -24,6 +24,10 @@ module.exports = (sequelize,DataTypes) => {
             type : DataTypes.STRING(100),
             allowNull:false
         },
+        isActive:{
+            type: DataTypes.STRING(5),
+            allowNull:false
+        },
         transferFromId : {
             type : DataTypes.INTEGER,
             allowNull:true
